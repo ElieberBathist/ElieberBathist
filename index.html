@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mi Web Personal</title>
+    <!-- Google Fonts: Montserrat -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Montserrat", Arial, sans-serif;
+        background: linear-gradient(135deg, #e0e7ff 0%, #fff 100%);
+      }
+      #inicio {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url("imagenes/programing.jpeg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        text-shadow: 1px 1px 4px black;
+      }
+      #informacion {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(224, 224, 224, 0.95);
+        text-align: center;
+        padding: 60px 20px 40px 20px;
+      }
+      .profile-img {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 5px solid #0d6efd;
+        margin-top: 30px;
+        box-shadow: 0 6px 24px rgba(44, 62, 80, 0.15);
+        transition: transform 0.3s;
+      }
+      .profile-img:hover {
+        transform: scale(1.07) rotate(-2deg);
+        box-shadow: 0 12px 32px rgba(44, 62, 80, 0.22);
+      }
+      .titulo-creativo {
+        font-size: 2.7rem;
+        font-weight: 700;
+        color: #0d6efd;
+        margin-bottom: 22px;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 8px #fff7;
+      }
+      .descripcion {
+        font-size: 1.22rem;
+        max-width: 650px;
+        margin-bottom: 30px;
+        color: #2c3e50;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 10px;
+        padding: 18px 24px;
+        box-shadow: 0 2px 12px rgba(44, 62, 80, 0.07);
+      }
+      /* Cuadros interactivos */
+      .cuadro {
+        position: relative;
+        width: 280px;
+        height: 280px;
+        margin: 24px;
+        background: linear-gradient(135deg, #0d6efd 70%, #5bc0de 100%);
+        color: white;
+        border-radius: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: transform 0.25s, box-shadow 0.25s;
+        box-shadow: 0 6px 24px rgba(44, 62, 80, 0.12);
+        overflow: hidden;
+        font-weight: 600;
+        outline: none;
+      }
+      .cuadro:focus {
+        box-shadow: 0 0 0 3px #0d6efd66;
+      }
+      .cuadro:hover {
+        transform: scale(1.07) rotate(-1deg);
+        box-shadow: 0 16px 36px rgba(44, 62, 80, 0.18);
+        background: linear-gradient(135deg, #0d6efd 90%, #5bc0de 100%);
+      }
+      .contenido-cuadro {
+        display: none;
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        background: rgba(255, 255, 255, 0.93);
+        color: #0d6efd;
+        padding: 18px 14px 10px 14px;
+        border-radius: 16px;
+        font-size: 1.15rem;
+        box-shadow: 0 4px 16px rgba(44, 62, 80, 0.1);
+        z-index: 2;
+        text-align: left;
+        font-weight: 500;
+        animation: fadeIn 0.25s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .contenido-cuadro.open {
+        display: block;
+      }
+      /* Flecha de cerrar */
+      .cerrar {
+        position: absolute;
+        top: 10px;
+        right: 14px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #dc3545;
+        transition: color 0.2s;
+      }
+      .cerrar:hover {
+        color: #a71d2a;
+      }
+      .custom-border {
+        border: 2px solid #fff;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background-color: rgba(30, 30, 60, 0.37);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+      }
+      /* Botón animado */
+      .btn-primary {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        border-radius: 50px;
+        box-shadow: 0 4px 16px rgba(44, 62, 80, 0.13);
+        transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+      }
+      .btn-primary:hover,
+      .btn-primary:focus {
+        background: linear-gradient(90deg, #0d6efd 70%, #5bc0de 100%);
+        box-shadow: 0 8px 24px rgba(44, 62, 80, 0.19);
+        transform: translateY(-2px) scale(1.04);
+      }
+      /* Animación para los íconos de habilidades */
+      .cuadro .contenido-cuadro i {
+        animation: bounceIn 0.7s;
+      }
+      @keyframes bounceIn {
+        0% {
+          transform: scale(0.4);
+          opacity: 0.2;
+        }
+        60% {
+          transform: scale(1.2);
+        }
+        80% {
+          transform: scale(0.95);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      /* Responsive cuadros */
+      @media (max-width: 900px) {
+        .d-flex.justify-content-center {
+          flex-direction: column !important;
+          align-items: center !important;
+        }
+        .cuadro {
+          margin: 20px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sección principal con imagen de fondo -->
+    <section id="inicio" class="container-fluid">
+      <div class="fondo-blur text-center p-5 rounded-3 custom-border">
+        <h1 class="mb-3">
+          <i class="bi bi-person-circle me-2"></i>Bienvenido a mi mundo digital
+        </h1>
+        <p class="lead mb-4">Explorá más sobre mí y lo que hago.</p>
+        <a href="#informacion" class="btn btn-primary btn-lg mt-2 shadow"
+          ><i class="bi bi-arrow-down-circle me-2"></i>Ver más</a
+        >
+      </div>
+    </section>
+
+    <!-- Sección secundaria con información -->
+    <section id="informacion">
+      <img src="imagenes/wpp.jpg" alt="Tu nombre" class="profile-img mb-3" />
+      <h2 class="titulo-creativo">
+        ¡Hola! Soy Elieber, apasionado por crecer, aprender y dejar una huella
+        positiva.
+      </h2>
+      <p class="descripcion">
+        Apasionado por la tecnología, estudiante de Análisis de Sistemas en
+        UNICAN, y siempre en busca de nuevos retos. Me encanta aprender,
+        colaborar y aportar en proyectos sociales y tecnológicos.
+      </p>
+      <div class="d-flex justify-content-center flex-wrap mt-4">
+        <!-- Cuadro: Redes sociales -->
+        <div class="cuadro" tabindex="0">
+          <div class="contenido-cuadro">
+            <span class="cerrar" onclick="cerrarContenido(this)">
+              <i class="bi bi-x-circle"></i>
+            </span>
+            <strong><i class="bi bi-share me-2"></i>Redes:</strong><br />
+            <a
+              href="https://www.facebook.com/elieber.batista.52/"
+              target="_blank"
+              ><i class="bi bi-facebook"></i> Facebook</a
+            ><br />
+            <a href="https://www.instagram.com/_elieber_/" target="_blank"
+              ><i class="bi bi-instagram"></i> Instagram</a
+            ><br />
+            <a
+              href="https://www.tiktok.com/@elieberr_?lang=pt-BR"
+              target="_blank"
+              ><i class="bi bi-tiktok"></i> Tiktok</a
+            >
+          </div>
+          <span><i class="bi bi-share me-2"></i>Redes</span>
+        </div>
+        <!-- Cuadro: Correo electrónico -->
+        <div class="cuadro" tabindex="0">
+          <div class="contenido-cuadro">
+            <span class="cerrar" onclick="cerrarContenido(this)">
+              <i class="bi bi-x-circle"></i>
+            </span>
+            <strong><i class="bi bi-envelope me-2"></i>Correo:</strong><br />
+            <div style="padding: 10px">
+              <a href="mailto:elieberbatista06@gmail.com">
+                elieberbatista06<br />@gmail.com
+              </a>
+            </div>
+          </div>
+          <span><i class="bi bi-envelope me-2"></i>Correo</span>
+        </div>
+        <!-- Cuadro: Datos personales -->
+        <div class="cuadro" tabindex="0">
+          <div class="contenido-cuadro">
+            <span class="cerrar" onclick="cerrarContenido(this)">
+              <i class="bi bi-x-circle"></i>
+            </span>
+            <strong
+              ><i class="bi bi-person-vcard me-2"></i>Datos personales:</strong
+            ><br />
+            Edad: 19 años<br />
+            Ciudad: Salto del Guairá<br />
+            Nacionalidad: Paraguaya
+          </div>
+          <span><i class="bi bi-person-vcard me-2"></i>Personales</span>
+        </div>
+        <!-- Cuadro: Datos académicos -->
+        <div class="cuadro" tabindex="0">
+          <div class="contenido-cuadro">
+            <span class="cerrar" onclick="cerrarContenido(this)">
+              <i class="bi bi-x-circle"></i>
+            </span>
+            <strong
+              ><i class="bi bi-mortarboard me-2"></i>Datos académicos:</strong
+            ><br />
+            Carrera: Análisis de Sistemas<br />
+            Universidad: UNICAN<br />
+            Año: 2° año
+          </div>
+          <span><i class="bi bi-mortarboard me-2"></i>Académicos</span>
+        </div>
+        <!-- Cuadro: Pasatiempos y otros datos -->
+        <div class="cuadro" tabindex="0">
+          <div class="contenido-cuadro">
+            <span class="cerrar" onclick="cerrarContenido(this)">
+              <i class="bi bi-x-circle"></i>
+            </span>
+            <strong><i class="bi bi-emoji-smile me-2"></i>Hobby</strong><br />
+            "Entrenar, música, guitarra y tecnología= mis pasiones."
+          </div>
+          <span><i class="bi bi-emoji-smile me-2"></i>Pasatiempos</span>
+        </div>
+        <!-- Cuadro: Habilidades técnicas -->
+        <div class="cuadro" tabindex="0">
+          <div class="contenido-cuadro">
+            <span class="cerrar" onclick="cerrarContenido(this)">
+              <i class="bi bi-x-circle"></i>
+            </span>
+            <strong
+              ><i class="bi bi-tools me-2"></i>Habilidades técnicas:</strong
+            >
+            <div class="mt-2">
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-filetype-html text-danger fs-4 me-2"></i>
+                <span class="me-2">HTML5</span>
+                <div class="progress flex-grow-1" style="height: 8px">
+                  <div class="progress-bar bg-danger" style="width: 40%"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-filetype-css text-primary fs-4 me-2"></i>
+                <span class="me-2">CSS3</span>
+                <div class="progress flex-grow-1" style="height: 8px">
+                  <div class="progress-bar bg-primary" style="width: 55%"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-bootstrap text-purple fs-4 me-2"></i>
+                <span class="me-2">Bootstrap</span>
+                <div class="progress flex-grow-1" style="height: 8px">
+                  <div class="progress-bar bg-info" style="width: 70%"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-git text-warning fs-4 me-2"></i>
+                <span class="me-2">Git</span>
+                <div class="progress flex-grow-1" style="height: 8px">
+                  <div class="progress-bar bg-warning" style="width: 40%"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-filetype-py text-secondary fs-4 me-2"></i>
+                <span class="me-2">Python</span>
+                <div class="progress flex-grow-1" style="height: 8px">
+                  <div
+                    class="progress-bar bg-secondary"
+                    style="width: 60%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <small class="text-muted d-block mt-2"
+              >¡Siempre aprendiendo más!</small
+            >
+          </div>
+          <span><i class="bi bi-tools me-2"></i>Habilidades</span>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Manejo de cuadros interactivos por click/tap y teclado
+      document.querySelectorAll(".cuadro").forEach((cuadro) => {
+        cuadro.addEventListener("click", function (e) {
+          // Si el click es en la X, no abrir/cerrar el cuadro aquí
+          if (e.target.closest(".cerrar")) return;
+          cerrarTodosCuadros();
+          const contenido = this.querySelector(".contenido-cuadro");
+          contenido.classList.add("open");
+          // Evitar que el click se propague al document
+          e.stopPropagation();
+        });
+        // Accesibilidad: abrir con Enter/Espacio, cerrar con Escape
+        cuadro.addEventListener("keydown", function (e) {
+          const contenido = this.querySelector(".contenido-cuadro");
+          if (
+            (e.key === "Enter" || e.key === " ") &&
+            !contenido.classList.contains("open")
+          ) {
+            cerrarTodosCuadros();
+            contenido.classList.add("open");
+            e.preventDefault();
+          }
+          if (e.key === "Escape" && contenido.classList.contains("open")) {
+            contenido.classList.remove("open");
+            e.preventDefault();
+          }
+        });
+      });
+
+      // Cerrar con la X
+      function cerrarContenido(cerrarBtn) {
+        const contenido = cerrarBtn.closest(".contenido-cuadro");
+        contenido.classList.remove("open");
+      }
+
+      // Cerrar todos los cuadros abiertos
+      function cerrarTodosCuadros() {
+        document
+          .querySelectorAll(".contenido-cuadro.open")
+          .forEach((c) => c.classList.remove("open"));
+      }
+
+      // Cerrar al hacer click fuera de los cuadros
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest(".cuadro")) {
+          cerrarTodosCuadros();
+        }
+      });
+
+      // Opcional: Cerrar con Escape global
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") cerrarTodosCuadros();
+      });
+    </script>
+  </body>
+</html>
